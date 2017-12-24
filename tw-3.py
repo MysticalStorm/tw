@@ -4,6 +4,7 @@ import json
 import urllib
 import urllib2
 from ghost import Ghost
+import argparse
 
 
 app = Flask(__name__)
@@ -70,4 +71,10 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    parser = argparse.ArgumentParser(description='Process some integers.')
+
+    parser.add_argument('--ip', metavar='N', type=str)
+    parser.add_argument('--port', metavar='N', type=int)
+
+    args = parser.parse_args()
+    app.run(host=args.ip, port=args.port)
