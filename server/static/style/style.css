@@ -33,7 +33,7 @@ li a:hover {
 #content {
     margin-left: 10px;
     margin-top: 10px;
-    width: 30%;
+    min-width: 30%;
 }
 
 #content-head {
@@ -52,6 +52,7 @@ li a:hover {
     margin-top: 0px;
     padding-top: 10px;
     padding-left: 10px;
+    padding-bottom: 10px;
 
     background-color: #636363;
 }

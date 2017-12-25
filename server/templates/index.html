@@ -6,15 +6,29 @@
   </head>
   <body>
     <ul>
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a class="active" href="/">Home</a></li>
     </ul>
 
     <div id="content">
         <div id="content-head">This is my head</div>
-        <div id="content-body">THIS IS BODY AND AND AND AND </div>
+        <div id="content-body">Login form
+            <form action="/tw/try">
+              <div class="imgcontainer">
+                <img src="{{ url_for('static', filename='avatar.png') }}" alt="Avatar" class="avatar">
+              </div>
+
+              <div class="container">
+                  <label><b>Username</b></label>
+                  <input type="text" placeholder="Enter Username" name="login" required>
+                  <br />
+                  <label><b>Password</b></label>
+                  <input type="password" placeholder="Enter Password" name="password" required>
+                  <button type="submit">Login</button>
+              </div>
+            </form>
+        </div>
+
+
     </div>
 
   </body>

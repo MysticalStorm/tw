@@ -1,8 +1,11 @@
 import os
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, request
+from bo7 import BOT
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+bot = BOT()
 
 @app.url_defaults
 def hashed_static_file(endpoint, values):
