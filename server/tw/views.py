@@ -1,37 +1,22 @@
 
 import os
-
 import time
-from flask import Flask, render_template, url_for
 import cookielib
 import json
 import urllib
 import urllib2
 from ghost import Ghost
-import argparse
+from flask import Blueprint, render_template, url_for
+from tw import login, password
 
+bp = Blueprint('tw', __name__)
 
-app = Flask(__name__)
-
-@app.context_processor
-def override_url_for():
-    return dict(url_for=dated_url_for)
-
-def dated_url_for(endpoint, **values):
-    if endpoint == 'static':
-        filename = values.get('filename', None)
-        if filename:
-            file_path = os.path.join(app.root_path,
-                                     endpoint, filename)
-            values['q'] = int(os.stat(file_path).st_mtime)
-    return url_for(endpoint, **values)
-
-@app.route('/')
+@bp.route('/')
 def index():
     ts = time.time()
     return render_template('index.html', time=ts)
 
-@app.route('/try')
+@bp.route('/try')
 def hello_world():
     ghost = Ghost(log_level=40)
 
@@ -42,7 +27,7 @@ def hello_world():
         page, extra_resources = session.open("https://www.the-west.ru/")
 
         url = 'https://www.the-west.ru/index.php?ajax=check_login'
-        values = {'name': 'ideadline', 'password': '91929394qQzZ'}
+        values = {'name': login, 'password': password}
         data = urllib.urlencode(values)
         response = opener.open(url, data)
         data = json.load(response)
@@ -89,13 +74,3 @@ def hello_world():
 
         session.capture_to('new1.png')
     return 'Hello World!'
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process some integers.')
-
-    parser.add_argument('--ip', metavar='N', type=str)
-    parser.add_argument('--port', metavar='N', type=int)
-
-    args = parser.parse_args()
-    app.run(host=args.ip, port=args.port)
