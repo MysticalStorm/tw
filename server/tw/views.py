@@ -1,5 +1,3 @@
-
-import os
 import time
 import cookielib
 import json
@@ -7,17 +5,16 @@ import urllib
 import urllib2
 from ghost import Ghost
 from flask import Blueprint, render_template, url_for
-from tw import login, password
 
 bp = Blueprint('tw', __name__)
 
-@bp.route('/')
+@bp.route('/', methods=['GET', 'POST'])
 def index():
     ts = time.time()
-    return render_template('index.html', time=ts)
+    return render_template('tw/index.html', time=ts)
 
 @bp.route('/try')
-def hello_world():
+def hello_world(login, password):
     ghost = Ghost(log_level=40)
 
     cookie_jar = cookielib.CookieJar()
