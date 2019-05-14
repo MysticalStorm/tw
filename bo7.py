@@ -11,11 +11,12 @@ class BOT:
     ghost = Ghost(log_level=40)
     cookie_jar = cookielib.CookieJar()
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie_jar))
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2'
 
     def start(self, login, password):
         print 'ENTER'
 
-        with self.ghost.start(download_images=False) as session:
+        with self.ghost.start(download_images=False, user_agent = user_agent) as session:
             page, extra_resources = session.open("https://www.the-west.ru/")
             print 'ENTER TO WEST'
 
@@ -34,7 +35,7 @@ class BOT:
                 data['password']) + '&set_cookie=0';
             page, extra_resources = session.open(url, method='post', body=values)
 
-            cookies = ''
+            cookies='User-Agent=' + user_agent +  ';'
             for cookie in session.cookies:
                 cookies += cookie.name() + '=' + cookie.value() + ';'
             self.opener.addheaders.append(('Cookie', cookies))
